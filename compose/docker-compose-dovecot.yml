@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  dovecot:
+    build: ../dovecot
+    container_name: dovecot-grupo6
+    hostname: mail.feri.fpinto.com.es
+    ports:
+      - "143:143"   # IMAP
+      - "993:993"   # IMAPS
+      - "110:110"   # POP3
+      - "995:995"   # POP3S
+    volumes:
+      - ../maildata:/var/mail
+      - ../dovecot/conf/dovecot.conf:/etc/dovecot/dovecot.conf:ro
+      - ../dovecot/conf/conf.d:/etc/dovecot/conf.d:ro
+    restart: unless-stopped

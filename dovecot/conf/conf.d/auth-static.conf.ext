@@ -1,0 +1,9 @@
+passdb {
+  driver = static
+  args = password=grupo6pass
+}
+
+userdb {
+  driver = static
+  args = uid=vmail gid=vmail home=/var/mail/vhosts/%d/%n
+}
