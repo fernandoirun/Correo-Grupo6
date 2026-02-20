@@ -1,5 +1,5 @@
 # ASIR-Practica-Correo-FDLA
-Repositorio de Fernando Irún, Daniel Estévez, Lucas, Álvaro Rodríguez para la implementación y configuración de un sistema de correo electrónico completo (MTA y MDA) sobre Ubuntu Server, utilizando Postfix para el envío mediante SMTP y Dovecot para el acceso a buzones mediante IMAP/POP3, integrando seguridad TLS y pruebas de cliente con Thunderbird
+Repositorio de Fernando Irún, Daniel Estévez, Lucas Garcia Redruello, Álvaro Rodríguez (maula historico de epoca, no sabe aparcar en bateria, se considera therian) para la implementación y configuración de un sistema de correo electrónico completo (MTA y MDA) sobre Ubuntu Server, utilizando Postfix para el envío mediante SMTP y Dovecot para el acceso a buzones mediante IMAP/POP3, integrando seguridad TLS y pruebas de cliente con Thunderbird
 
 
 Para tu repositorio de GitHub, la descripción debe ser profesional y directa, indicando que se trata de un entorno de laboratorio para el despliegue de servicios de red.
