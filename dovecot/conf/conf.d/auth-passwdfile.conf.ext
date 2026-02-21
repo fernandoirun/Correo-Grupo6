@@ -1,0 +1,9 @@
+passdb {
+  driver = passwd-file
+  args = /etc/dovecot/users
+}
+
+userdb {
+  driver = passwd-file
+  args = /etc/dovecot/users
+}

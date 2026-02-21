@@ -1,0 +1,5 @@
+# Formato: usuario:{PLAIN}contraseña:uid:gid:gecos:home
+test@feri.fpinto.com.es:{PLAIN}grupo6pass:5000:5000::/var/mail/vhosts/feri.fpinto.com.es/test
+admin@feri.fpinto.com.es:{PLAIN}adminpass:5000:5000::/var/mail/vhosts/feri.fpinto.com.es/admin
+user1@feri.fpinto.com.es:{PLAIN}pass123:5000:5000::/var/mail/vhosts/feri.fpinto.com.es/user1
+user2@feri.fpinto.com.es:{PLAIN}pass456:5000:5000::/var/mail/vhosts/feri.fpinto.com.es/user2
