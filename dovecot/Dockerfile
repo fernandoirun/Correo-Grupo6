@@ -13,7 +13,15 @@ RUN apt-get update && apt-get install -y \
 RUN groupadd -g 5000 vmail && \
     useradd -u 5000 -g vmail -s /usr/sbin/nologin -d /var/mail vmail
 
-# Crear directorio para buzones con el dominio del grupo 6
+# Crear usuario postfix para el socket de autenticación
+RUN useradd -r -s /usr/sbin/nologin postfix
+
+# Crear directorio para el socket de autenticación (Postfix lo usará)
+RUN mkdir -p /var/spool/postfix/private && \
+    chown -R postfix:postfix /var/spool/postfix && \
+    chmod 755 /var/spool/postfix/private
+
+# Crear directorio para buzones con el dominio del grupo 6 (MAILDIR)
 RUN mkdir -p /var/mail/vhosts/feri.fpinto.com.es && \
     chown -R vmail:vmail /var/mail
 
