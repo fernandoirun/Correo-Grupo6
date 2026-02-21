@@ -14,4 +14,7 @@ services:
       - ../maildata:/var/mail
       - ../dovecot/conf/dovecot.conf:/etc/dovecot/dovecot.conf:ro
       - ../dovecot/conf/conf.d:/etc/dovecot/conf.d:ro
+      - ../dovecot/conf/users:/etc/dovecot/users:ro
+      # Socket compartido con Postfix (cuando exista)
+      - ../postfix/spool:/var/spool/postfix
     restart: unless-stopped
