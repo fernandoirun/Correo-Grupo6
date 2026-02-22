@@ -143,3 +143,29 @@ git push origin fernandoirun/dovecot-config
 ---
 
 ¿Quieres que añada algo más para Álvaro?
+
+
+## Capturas por Álvaro
+
+<img width="931" height="385" alt="image" src="https://github.com/user-attachments/assets/d75a4415-ec29-42a6-ad4b-278682512f9c" />
+
+sudo docker compose -f docker-compose-dovecot.yml logs mostrando únicamente un aviso:
+
+<img width="922" height="82" alt="image" src="https://github.com/user-attachments/assets/690dd1d0-b823-4e44-861f-194632f82fd2" />
+
+Estructura de directorios:
+
+<img width="729" height="432" alt="image" src="https://github.com/user-attachments/assets/77af82b2-d482-4647-b719-1b639bbc4587" />
+
+Contenido de dovecot.conf:
+
+<img width="582" height="944" alt="image" src="https://github.com/user-attachments/assets/9b35b215-498d-48a4-8e58-a681d54b6fec" />
+
+Contenido del archivo users:
+
+<img width="848" height="127" alt="image" src="https://github.com/user-attachments/assets/f2e75637-627a-44b3-bd7f-bdaad6d89345" />
+
+Conexión IMAP exitosa
+
+<img width="931" height="304" alt="image" src="https://github.com/user-attachments/assets/cbdff0ec-d009-47b5-917b-12b943597eaf" />
+
