@@ -21,30 +21,124 @@ Mostrar estructura de directorios creada
 
 <img width="392" height="332" alt="image" src="https://github.com/user-attachments/assets/d108f209-33c8-4e0c-a538-8618e5057a9e" />
 
-Mostrar contenido del Dockerfile
+## Mostrar contenido del Dockerfile
 
 <img width="393" height="352" alt="image" src="https://github.com/user-attachments/assets/4ddaca12-c71f-4a8a-8d54-97bb63af9dfa" />
 
-Mostrar configuración principal de Dovecot
+En esta captura se muestra el contenido del `Dockerfile` que he creado para construir la imagen de **Dovecot**. Está basado en `ubuntu:24.04` como pide la práctica. Lo que hace es:
+
+* **Instalar los paquetes necesarios** de Dovecot (core, imap, pop3, lmtpd).
+* **Crear el usuario `vmail**` con UID 5000, que será el dueño de los buzones de correo.
+* **Crear el usuario `postfix**` para que en el futuro pueda usarse el socket de autenticación.
+* **Crear la estructura de directorios:** `/var/spool/postfix/private` para el socket y `/var/mail/vhosts/feri.fpinto.com.es` para los buzones en formato Maildir.
+* **Exponer los puertos** 143 (IMAP), 993 (IMAPS), 110 (POP3) y 995 (POP3S).
+* **Finalmente, ejecutar Dovecot** en primer plano con `dovecot -F`.
+
+Este `Dockerfile` es personalizado porque usamos una imagen base de Ubuntu en lugar de una imagen oficial de Dovecot, lo que nos da más control sobre la configuración.
+
+## Mostrar configuración principal de Dovecot
 
 <img width="269" height="483" alt="image" src="https://github.com/user-attachments/assets/894f6bf7-b1cc-49a5-8a63-fe6518da9217" />
 
-Mostrar archivo de usuarios
+Esta captura muestra el archivo principal de configuración de **Dovecot**. Aquí definimos los aspectos más importantes del servidor de correo:
+
+* **Dominio:** El dominio que usamos es `feri.fpinto.com.es`, que es el asignado a nuestro grupo.
+* **Protocolos:** Soportamos los protocolos **IMAP**, **POP3** y **LMTP** (este último para la entrega local de correos).
+* **Formato de buzones:** El formato es **Maildir**, que guarda cada correo en un archivo individual dentro de `/var/mail/vhosts/dominio/usuario`. Esto es más robusto que el formato `mbox`.
+* **Permisos:** El usuario `vmail` (UID 5000) es el propietario de los buzones.
+* **Carpetas por defecto:** Se definen **Drafts**, **Junk**, **Trash** y **Sent** para que los clientes de correo las reconozcan automáticamente.
+* **Socket de autenticación:** La sección `service auth` está preparada para crear un socket en `/var/spool/postfix/private/auth`, que permitirá a Postfix validar usuarios.
+* **Autenticación:** Los usuarios se gestionan mediante el archivo `/etc/dovecot/users` usando el driver `passwd-file`.
+* **Modularidad:** Se incluyen las configuraciones adicionales de la carpeta `conf.d/`.
+
+Este archivo es el corazón de Dovecot y coordina todo el funcionamiento del servidor.
+
+## Mostrar archivo de usuarios
 
 <img width="580" height="93" alt="image" src="https://github.com/user-attachments/assets/de87a440-5eae-44ba-933a-d356d7868bae" />
 
-Mostrar configuraciones adicionales
+En esta captura se muestra el archivo `users` donde hemos definido las cuentas de correo para las pruebas del servidor **Dovecot**. El formato utilizado es el estándar para archivos `passwd`:
+`usuario:{PLAIN}contraseña:UID:GID:gecos:home`.
+
+Hemos creado **cuatro usuarios** de prueba:
+
+* **test@feri.fpinto.com.es** (password: `grupo6pass`) → Usuario principal para pruebas genéricas.
+* **admin@feri.fpinto.com.es** (password: `admpass`) → Pensado para tareas administrativas.
+* **user1@feri.fpinto.com.es** (password: `pass123`) → Usuario de prueba adicional.
+* **user2@feri.fpinto.com.es** (password: `pass456`) → Otro usuario de prueba.
+
+### **Detalles de configuración:**
+
+* **Identidad:** Todos los usuarios comparten el mismo **UID y GID (5000)**, que corresponde al usuario `vmail` creado en el `Dockerfile`.
+* **Ruta Home:** La ruta de cada uno apunta a su buzón individual dentro de `/var/mail/vhosts/feri.fpinto.com.es/`, siguiendo la estructura **Maildir** configurada.
+* **Simplicidad:** Este archivo permite que Dovecot autentique a los usuarios sin necesidad de bases de datos externas, lo cual es ideal para nuestro entorno de prácticas.
+
+## Mostrar configuraciones adicionales
 
 <img width="447" height="447" alt="image" src="https://github.com/user-attachments/assets/ec6b20de-6f5c-46ca-985f-a5a176296562" />
 
- Mostrar docker-compose para Dovecot
+Este archivo sirve para **definir cómo se autentican los usuarios**. Hemos configurado el sistema para que utilice el archivo `users` como base de datos local de cuentas.
+
+### **`10-mail.conf`**
+
+Este archivo sirve para **indicar dónde y cómo se guardan los correos**. En nuestra configuración, hemos establecido el formato **Maildir** y la ruta jerárquica `/var/mail/vhosts/dominio/usuario`.
+
+### **`10-master.conf`**
+
+Este archivo sirve para **configurar los puertos y servicios** que ofrece Dovecot:
+
+* **Puertos:** 143 (IMAP), 993 (IMAPS), 110 (POP3) y 995 (POP3S).
+* **Socket de autenticación:** Prepara el socket en la ruta compartida para que **Postfix pueda validar usuarios** de forma externa cuando se implemente el envío.
+
+ ## Mostrar docker-compose para Dovecot
 
  <img width="485" height="258" alt="image" src="https://github.com/user-attachments/assets/c72e86db-b2b5-4354-828b-90bde7095398" />
 
-Construir y levantar el contenedor
+Este archivo de **Docker Compose** sirve para **orquestar el contenedor de Dovecot** de forma automatizada. A continuación, se detalla cada directiva utilizada:
+
+* **`build: ../dovecot`**: Construye la imagen utilizando nuestro `Dockerfile` personalizado.
+* **`container_name: dovecot-grupo6`**: Asigna un nombre específico al contenedor para identificarlo fácilmente en el sistema.
+* **`hostname: mail.feri.fpinto.com.es`**: Define el nombre de host del servidor de correo dentro de la red.
+* **`ports` (Mapeo de puertos)**: Expone los servicios al exterior mapeando los puertos del contenedor con los del host:
+* **143** (IMAP) / **993** (IMAPS)
+* **110** (POP3) / **995** (POP3S)
+
+
+* **`volumes` (Persistencia y configuración)**: Monta carpetas y archivos locales dentro del contenedor para que los cambios sean permanentes:
+* `../maildata`: Almacena los correos electrónicos (formato Maildir).
+* `dovecot.conf`, `conf.d/` y `users`: Inyecta la configuración que hemos definido.
+* `../postfix/spool`: Prepara el volumen para el socket compartido que usará Postfix en el futuro.
+
+
+* **`restart: unless-stopped`**: Garantiza que el servicio se reinicie automáticamente si ocurre un error, a menos que lo detengamos manualmente.
+
+Este archivo nos permite desplegar todo el servicio de correo con un solo comando: `docker compose up -d`.
+
+## Construir y levantar el contenedor
 
 <img width="957" height="360" alt="image" src="https://github.com/user-attachments/assets/2ce47e80-e45f-4ea7-823e-4c5e653f96b7" />
 
+En esta captura se muestra el comando utilizado para **construir la imagen y levantar el contenedor de Dovecot** de forma automatizada:
+
+```bash
+docker compose -f docker-compose-dovecot.yml up -d --build
+
+```
+
+### **Análisis del comando:**
+
+* **`-f docker-compose-dovecot.yml`**: Especifica el archivo de configuración de Compose que debe utilizar.
+* **`up`**: Se encarga de crear y arrancar los servicios definidos.
+* **`-d`** (Detached): Ejecuta el contenedor en segundo plano, liberando la terminal.
+* **`--build`**: Fuerza la reconstrucción de la imagen antes de arrancar, asegurando que se incluyan los últimos cambios del `Dockerfile` o los archivos de configuración.
+
+### **Resultados visibles en la salida:**
+
+* **Aviso de `version**`: Aparece un `WARN` sobre el formato del archivo, pero no afecta a la ejecución.
+* **`[+] Building`**: Muestra el proceso de construcción de la imagen (utiliza capas en caché para mayor velocidad).
+* **`[+] up`**: Indica que el contenedor se ha creado y arrancado correctamente.
+
+Este comando es esencial en nuestro flujo de trabajo para aplicar cualquier modificación en la configuración del servidor.
 
 ## Documentación de Álvaro Rodriguez - Parte 2 Dovecot
 
