@@ -303,6 +303,9 @@ networks:
   - **Servidor SMTP**: mismo servidor, puerto 587, STARTTLS, contraseña normal.  
 - Acepta el certificado autofirmado.  
 - Envía un correo entre dos usuarios (puedes crear dos cuentas locales en el servidor, ej. `user1` y `user2`).
+<img width="607" height="729" alt="image" src="https://github.com/user-attachments/assets/ebc263b2-e288-4430-9583-60f962e21c7f" />
+
+
 
 #### 8. Documentación en PDF
 - Incluye:
