@@ -382,6 +382,21 @@ networks:
   - **Servidor SMTP**: mismo servidor, puerto 587, STARTTLS, contraseña normal.  
 - Acepta el certificado autofirmado.  
 - Envía un correo entre dos usuarios (puedes crear dos cuentas locales en el servidor, ej. `user1` y `user2`).
+
+El objetivo de esta parte de la práctica es verificar que el servidor de correo (Postfix + Dovecot) es funcional desde la perspectiva de un usuario final, utilizando un cliente de correo gráfico como Thunderbird. Se comprobará el envío y recepción de correos electrónicos entre dos usuarios del sistema.
+
+Comprobar contenedores en ejecución
+root@mail:~# docker ps | grep -E "postfix|dovecot"
+
+Se crearon dos usuarios locales en el sistema para realizar las pruebas de envío y recepción:
+root@mail:~# sudo adduser usuario1
+root@mail:~# sudo adduser usuario2
+
+root@mail:~# hostname -I
+172.19.0.1 10.0.2.15 192.168.1.45
+
+Desde un equipo cliente (Windows 11) se procedió a configurar Thunderbird:
+
 <img width="607" height="729" alt="image" src="https://github.com/user-attachments/assets/ebc263b2-e288-4430-9583-60f962e21c7f" />
 
 
