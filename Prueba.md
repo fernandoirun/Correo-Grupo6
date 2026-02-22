@@ -1,9 +1,5 @@
 ## 📧 Práctica de Correo Electrónico - Grupo 6 - Pasos a seguir
 
-Perfecto, voy a darte los pasos **ordenados y completos** para tu práctica como **Grupo 6**. Sigue esto al pie de la letra.
-
----
-
 ## 📋 **ÍNDICE DE TAREAS**
 
 1. [Preparar la máquina Azure](#1-preparar-la-máquina-azure-grupo-6)
@@ -662,7 +658,3 @@ df -h
 # Ver permisos de buzones
 ls -la /var/mail/
 ```
-
----
-
-¿Tienes algún paso concreto en el que necesites ayuda? ¡Avísame!
