@@ -35,3 +35,24 @@ Y con el siguiente verificamos que está a escucha:
 <img width="1260" height="113" alt="image" src="https://github.com/user-attachments/assets/773532c3-ba3e-486a-ae6b-456751bdc367" />
 
 Esto, lo pasaríamos a local, y con un cliente o un webmail, podríamos desplegarlo y todo, y comprobar su funcionamiento, en la nube como acabamos de desplegarlo no, dado que el dominio al que apunta, no existe, lo tenemos en nuestras máquinas virtuales en local.
+
+## Demo
+
+Clonamos repositorios para instalar y activar los contenedores en la máquina servidor:
+
+<img width="932" height="644" alt="image" src="https://github.com/user-attachments/assets/629138d6-4cc8-4569-8100-05cf737f596a" />
+
+Instalamos también la configuración de dovecot y modificamos el dominio de mi compañero por el mío:
+
+<img width="1879" height="902" alt="image" src="https://github.com/user-attachments/assets/e8c2c140-703b-4320-8ed0-bfa253493112" />
+
+Instalamos thunderbird:
+
+<img width="1262" height="311" alt="image" src="https://github.com/user-attachments/assets/e1cd75e6-c110-4fcc-8ba8-fdef5035d78d" />
+
+<img width="1884" height="143" alt="image" src="https://github.com/user-attachments/assets/a8eb1abe-6fbf-4513-b9da-fe8cb8a63c97" />
+
+<img width="1873" height="178" alt="image" src="https://github.com/user-attachments/assets/064e15d3-fd6b-4040-a83a-697f15b194f8" />
+
+Podemos ver que ambos servicios, están funcionando.
+
