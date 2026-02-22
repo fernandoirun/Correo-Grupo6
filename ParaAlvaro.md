@@ -140,10 +140,6 @@ git push origin fernandoirun/dovecot-config
 
 - Cualquier duda, lo hablamos.
 
----
-
-¿Quieres que añada algo más para Álvaro?
-
 
 ## Capturas por Álvaro
 
