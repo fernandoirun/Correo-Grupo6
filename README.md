@@ -26,3 +26,12 @@ El archivo main.cf es el núcleo del funcionamiento del servidor de correo. Se h
 
 <img width="626" height="133" alt="image" src="https://github.com/user-attachments/assets/966c4dab-ac23-48aa-951f-0695ba3e494d" />
 
+Para poner en marcha el sistema, EJECUTAMOS EL SIGUIENTE COMANDO:
+
+<img width="1269" height="267" alt="image" src="https://github.com/user-attachments/assets/e414e5cd-afde-4cfa-a6ec-3fdd56bdb6e7" />
+
+Y con el siguiente verificamos que está a escucha:
+
+<img width="1260" height="113" alt="image" src="https://github.com/user-attachments/assets/773532c3-ba3e-486a-ae6b-456751bdc367" />
+
+Esto, lo pasaríamos a local, y con un cliente o un webmail, podríamos desplegarlo y todo, y comprobar su funcionamiento, en la nube como acabamos de desplegarlo no, dado que el dominio al que apunta, no existe, lo tenemos en nuestras máquinas virtuales en local.
