@@ -1,9 +1,3 @@
-## 📧 Práctica de Correo Electrónico - Grupo 6 - Pasos a seguir
-
-Perfecto, voy a darte los pasos **ordenados y completos** para tu práctica como **Grupo 6**. Sigue esto al pie de la letra.
-
----
-
 ## 📋 **ÍNDICE DE TAREAS**
 
 1. [Preparar la máquina Azure](#1-preparar-la-máquina-azure-grupo-6)
@@ -64,9 +58,8 @@ sudo apt install -y git tree nano swaks mailutils
 
 ## 2. **Configurar DNS y dominios - Grupo 6**
 
-### 2.1 Definir variables (¡cambia "grupo6" por tu nombre real!)
+### 2.1 Definir variables
 ```bash
-# IMPORTANTE: Reemplaza 'grupo6' con el nombre que te hayan asignado
 export DOMINIO="grupo6.fpinfo.com.es"
 export HOSTNAME="mail.${DOMINIO}"
 export IP_PUBLICA="TU_IP_PUBLICA_DE_AZURE"
@@ -152,8 +145,6 @@ correo-grupo6/
 cd ~/correo-grupo6/postfix
 nano main.cf
 ```
-
-Copia y pega este contenido **(cambia "grupo6" por tu dominio)**:
 
 ```bash
 # IDENTIDAD DEL SERVIDOR
