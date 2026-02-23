@@ -78,6 +78,49 @@ Podemos ver que ambos servicios, están funcionando.
 
 ## Comandos utilizados
 
+https://github.com/fernandoirun/Correo-Grupo6/blob/fernandoirun/dovecot-config/documentacion-Ferir/Comandos.md
+
+## 👤 Resumen de Trabajo: Fernando Irún
+
+Este documento detalla las contribuciones y responsabilidades que he asumido durante el desarrollo del proyecto de servicios de red.
+
+---
+
+### 1. Gestión de Infraestructura y Repositorio
+Como responsable de la organización inicial, he ejecutado las siguientes tareas:
+* **Despliegue del Repositorio:** Creación y configuración inicial del repositorio `Correo-Grupo6`.
+* **Flujo de Trabajo Git:** Configuración de la autenticación mediante GitHub CLI (`gh auth login`) y gestión de permisos para los colaboradores.
+* **Arquitectura de Directorios:** Diseño de la estructura base del proyecto para separar configuraciones, datos y documentación.
+
+### 2. Implementación Técnica: Servidor Dovecot (IMAP/POP3)
+Me he encargado de la implementación completa del servicio de acceso a correo bajo la rama `fernandoirun/dovecot-config`:
+
+* **Contenerización (Dockerfile):**
+    * Imagen base: **Ubuntu 24.04**.
+    * Gestión de usuarios: Configuración de usuario `vmail` (buzones virtuales) y usuario `postfix` (integración SASL).
+    * Estructura de almacenamiento: Implementación del formato **Maildir**.
+* **Configuración del Servicio (`dovecot.conf`):**
+    * Dominio configurado: `feri.fpinto.com.es`.
+    * Soporte de protocolos: **IMAP, POP3 y LMTP**.
+* **Gestión de Usuarios Virtuales:**
+    * Creación de archivo de contraseñas con las cuentas: `test`, `admin`, `user1` y `user2`.
+* **Modularización (`conf.d/`):**
+    * Ajustes de seguridad en `10-auth.conf`.
+    * Definición de rutas en `10-mail.conf`.
+    * Exposición de puertos (143, 993, 110, 995) en `10-master.conf`.
+* **Orquestación:** Configuración del servicio en `docker-compose.yml` con persistencia de volúmenes y preparación del socket de autenticación para Postfix.
+
+### 3. Documentación y Evidencias
+He generado un paquete de documentación detallada en la carpeta `documentacion-Ferir/`:
+* **Guía Técnica:** README descriptivo con los pasos de instalación.
+* **Evidencias:** Capturas de pantalla de la estructura del proyecto, archivos de configuración críticos, Dockerfile y el historial de ramas en Git.
+
+---
+
+### Resumen para Evaluación
+
+> **Declaración de contribución:**
+> "Como integrante del Grupo 6, he liderado la **creación y organización del repositorio central** en GitHub. Mi desarrollo técnico principal ha sido el **servidor Dovecot**: desde la construcción del Dockerfile personalizado y la lógica de usuarios virtuales, hasta la configuración avanzada de Maildir y la integración con Docker Compose. Toda mi labor está documentada y respaldada por commits periódicos en mi rama de trabajo. La fase de integración del socket de autenticación con Postfix y las pruebas finales de envío/recepción quedan delegadas para la siguiente fase del equipo."
 
 ## Demostraciones
 Mostrar estructura de directorios creada
