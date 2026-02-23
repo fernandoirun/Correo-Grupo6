@@ -40,8 +40,37 @@ Esto, lo pasaríamos a local, y con un cliente o un webmail, podríamos desplega
 
 <img width="1528" height="136" alt="image" src="https://github.com/user-attachments/assets/28752634-41b9-4b3c-a181-d31b2da390a0" />
 
+### IAC con Terraform
 
-## Demo
+Instalamos el CLI de azure:
+
+<img width="1265" height="1228" alt="image" src="https://github.com/user-attachments/assets/1966100c-7fd3-4ce9-9ff3-c9073d7877cf" />
+
+Instalamos terraform con el siguiente comando:
+
+<img width="695" height="39" alt="image" src="https://github.com/user-attachments/assets/080bac68-89db-4a95-ab75-79c76a7f101e" />
+
+Debería funcionar, en este caso indica que ya está instalado dado a que fué instalado anteriormente :)
+
+Nos logueamos con la CLI de azure en nuestra cuenta proporcionada por el centro:
+
+<img width="1274" height="108" alt="image" src="https://github.com/user-attachments/assets/ceec8443-814f-4b2b-9393-82c2edcd5e5a" />
+
+Para el despliegue con terraform, creamos dentro de una carpeta, llamada "terraform" en nuestro directorio home, un archivo de configuración llamado "main.tf" en el que configuraremos como corresponda, escribiendo nuestro grupo de recursos, y lo correspondiente, en el archivo de configuración, como se ve en la siguiente imagen:
+
+<img width="1270" height="1239" alt="image" src="https://github.com/user-attachments/assets/39c3c339-9e5b-4e78-b57c-769986dddfd8" />
+
+Lo arrancamos y comprobamos que arranca correctamente:
+
+<img width="768" height="464" alt="image" src="https://github.com/user-attachments/assets/59e3732b-a680-40f8-b86c-667c62a18016" />
+
+Lo arrancamos para comprobar su funcionamiento:
+
+<img width="1242" height="1312" alt="image" src="https://github.com/user-attachments/assets/fff5de65-bda5-47b2-aafd-d93bcb0fb619" />
+
+<img width="1240" height="894" alt="image" src="https://github.com/user-attachments/assets/e0210d2e-bc76-45e1-b4ee-2681cd50fbba" />
+
+## Demo en local
 
 Clonamos repositorios para instalar y activar los contenedores en la máquina servidor:
 
