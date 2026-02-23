@@ -225,11 +225,3 @@ git add .
 git commit -m "feat: configuración completa de Dovecot"
 git push origin fernandoirun/dovecot-config
 ```
-
----
-
-## 📝 **RESUMEN PARA LA DOCUMENTACIÓN**
-
-Puedes poner este bloque en tu documentación:
-
-> *"Para el desarrollo de la práctica he utilizado los siguientes comandos organizados por categorías: comandos de Git/GitHub para la gestión del repositorio y ramas, comandos de shell para crear la estructura de directorios, edición de archivos con nano, comandos de Docker y Docker Compose para la construcción y gestión del contenedor de Dovecot, y comandos de red como telnet y netstat para verificar la conectividad de los puertos IMAP/POP3."*
