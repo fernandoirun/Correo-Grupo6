@@ -36,6 +36,11 @@ Y con el siguiente verificamos que está a escucha:
 
 Esto, lo pasaríamos a local, y con un cliente o un webmail, podríamos desplegarlo y todo, y comprobar su funcionamiento, en la nube como acabamos de desplegarlo no, dado que el dominio al que apunta, no existe, lo tenemos en nuestras máquinas virtuales en local.
 
+### Logs Docker
+
+<img width="1528" height="136" alt="image" src="https://github.com/user-attachments/assets/28752634-41b9-4b3c-a181-d31b2da390a0" />
+
+
 ## Demo
 
 Clonamos repositorios para instalar y activar los contenedores en la máquina servidor:
