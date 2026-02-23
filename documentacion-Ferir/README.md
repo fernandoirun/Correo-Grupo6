@@ -1,4 +1,5 @@
 # Documentación de Fernando Irún - Parte Dovecot
+| Esto es lo mismo que está en el Readme.md del main, solo que aquí se ve más claro y sin tanto "ruido". (Aclaro que aquí solo se ve los comandos que he decidido como indispensables, el resto de comandos los tienes en Comandos.md)
 
 ## Configuración realizada
 - Rama: fernandoirun/dovecot-config
