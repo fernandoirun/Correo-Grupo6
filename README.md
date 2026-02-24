@@ -84,11 +84,12 @@ Instalamos thunderbird:
 
 <img width="1262" height="311" alt="image" src="https://github.com/user-attachments/assets/e1cd75e6-c110-4fcc-8ba8-fdef5035d78d" />
 
-<img width="1884" height="143" alt="image" src="https://github.com/user-attachments/assets/a8eb1abe-6fbf-4513-b9da-fe8cb8a63c97" />
+<img width="1919" height="200" alt="image" src="https://github.com/user-attachments/assets/ce9a299a-42ed-49fc-9179-ef1774a8ca06" />
 
 <img width="1873" height="178" alt="image" src="https://github.com/user-attachments/assets/064e15d3-fd6b-4040-a83a-697f15b194f8" />
 
-Podemos ver que ambos servicios, están funcionando.
+Podemos ver que ambos servicios, están funcionando, ambos configurados con el dominio correspondiente de la red local, para que pueda resolver.
+
 
 # Documentación de Fernando Irún - Parte 2 Dovecot
 
