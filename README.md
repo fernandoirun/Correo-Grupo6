@@ -90,7 +90,165 @@ Instalamos thunderbird:
 
 Podemos ver que ambos servicios, están funcionando, ambos configurados con el dominio correspondiente de la red local, para que pueda resolver.
 
+También podemos hacerlo sin necesidad de contenedores, como veremos a continuación:
 
+Instalamos postfix:
+
+<img width="895" height="345" alt="image" src="https://github.com/user-attachments/assets/88c37828-eb2d-4585-903d-0142cfdb5b98" />
+
+Elegimos Internet Site:
+
+<img width="852" height="744" alt="image" src="https://github.com/user-attachments/assets/12f0a508-e919-4a6e-9363-1d27f338ffcc" />
+
+Ponemos de nombre del host el FQDN del dominio como indica la práctica y la info que nos aparece en pantalla:
+
+<img width="856" height="456" alt="image" src="https://github.com/user-attachments/assets/406e03ec-5b4e-4755-b6d7-18d2688301f8" />
+
+Seleccionamos correo para el administrador del dominio:
+
+<img width="841" height="510" alt="image" src="https://github.com/user-attachments/assets/be24bcd7-4d2c-4cb2-a4c0-4895ded45029" />
+
+No forzamos sincronizacion de correos:
+
+<img width="823" height="268" alt="image" src="https://github.com/user-attachments/assets/c38054da-8a81-43b3-93c8-b926d276641e" />
+
+Limitamos correos, su tamaño, a 20MB, tras poner nuestros rangos de red:
+
+<img width="850" height="304" alt="image" src="https://github.com/user-attachments/assets/f4dfa1f3-127c-4973-b70d-11a0d5fc6592" />
+
+Y seleccionamos ipv4 como unico protocolo de red permitido, denegando así cualquier petición por ipv6:
+
+<img width="836" height="453" alt="image" src="https://github.com/user-attachments/assets/ddcf6e01-a915-47ab-b9cb-f672fce9e1e9" />
+
+Comprobamos configuración de Postfix:
+
+<img width="669" height="600" alt="image" src="https://github.com/user-attachments/assets/9d328306-8f91-4a5f-b6bf-8ea2f3555685" />
+
+Y las directivas puestas por nosotros mismos:
+
+<img width="914" height="624" alt="image" src="https://github.com/user-attachments/assets/fd4574f6-7ad2-4b46-a97a-94fe8d7861b0" />
+
+<img width="892" height="54" alt="image" src="https://github.com/user-attachments/assets/c3701bbd-701c-4cb3-9be7-bb9d7984446e" />
+
+<img width="901" height="690" alt="image" src="https://github.com/user-attachments/assets/482fb211-8364-4f7a-aa7a-0370b555a629" />
+
+Tras configurar postfix, instalamos certbot, para hacer los certificados y configurar el SMTP seguro, con certificados no autofirmados:
+
+<img width="680" height="155" alt="image" src="https://github.com/user-attachments/assets/8db69d10-ba93-4cd9-ad2f-b7bfe71d5f04" />
+
+Lo configuramos:
+
+<img width="1775" height="750" alt="image" src="https://github.com/user-attachments/assets/f10b56a3-ff2e-4ced-8f8f-75bc90e9d4f1" />
+
+Da error, ya que Certbot requiere que el dominio esté registrado públicamente en internet, por lo que da error, ya que no somos propietario del dominio, ni tenemos IP Pública en la red privada, ya que esta la tiene el router. Por lo que seguiremos usando ssl, pero con certificados autofirmados, para ello, creamos la siguiente estructura de directorios:
+
+<img width="697" height="45" alt="image" src="https://github.com/user-attachments/assets/9bb35cbc-9d67-483f-a5ab-25130270581f" />
+
+Creamos el certificado autofirmado con lo siguiente:
+
+<img width="908" height="120" alt="image" src="https://github.com/user-attachments/assets/2086ca39-6757-4372-be87-1386e9ba56c8" />
+
+<img width="697" height="837" alt="image" src="https://github.com/user-attachments/assets/8065c68f-25cd-4ce8-87bd-8044e472dedc" />
+
+Ya está creado!
+
+Modificamos los permisos ya que los certificados deben tener x permisos para que otros usuarios del sistema no puedan leerlos ni usarlos:
+
+<img width="899" height="75" alt="image" src="https://github.com/user-attachments/assets/da9f53ee-0936-4b13-b239-76563390dbe5" />
+
+Ponemos los certificados autofirmados en el archivo main.cf:
+
+<img width="621" height="97" alt="image" src="https://github.com/user-attachments/assets/04576f4a-dadd-4b37-adcc-6f69ca155f34" />
+
+Comprobamos abriendo una conexión con telnet al puerto 25 (SMTP), que soporte TLS:
+
+<img width="729" height="405" alt="image" src="https://github.com/user-attachments/assets/17940b9c-54a8-4050-970e-49ab97989f54" />
+
+<img width="880" height="354" alt="image" src="https://github.com/user-attachments/assets/7d1e44c0-0067-46bd-9ec3-c7fb2be8c936" />
+
+Revisamos los logs:
+
+<img width="891" height="377" alt="image" src="https://github.com/user-attachments/assets/e9f994dd-9f5d-4bf8-b12f-543f58bab889" />
+
+<img width="704" height="250" alt="image" src="https://github.com/user-attachments/assets/e390330a-97b9-4b74-a659-ac1f4e4ffab9" />
+
+Procedemos a la instalación de Dovecot:
+
+<img width="879" height="85" alt="image" src="https://github.com/user-attachments/assets/4f74b235-95eb-4051-aac6-6b74d85a7dff" />
+
+Comprobamos que usamos mbox como formato de fichero para el buzón:
+
+<img width="604" height="40" alt="image" src="https://github.com/user-attachments/assets/a03a17d1-f2b1-47c3-ae34-6db49ba842b5" />
+
+Comprobamos la configuración efectiva del servidor:
+
+<img width="617" height="795" alt="image" src="https://github.com/user-attachments/assets/8831f2fa-0b51-4530-9ee5-074cef047af8" />
+
+Añadimos la siguiente configuración en el archivo 10-auth.conf para que permita la autenticación insegura con la passw en texto plano:
+
+<img width="736" height="753" alt="image" src="https://github.com/user-attachments/assets/157e3ad4-1e50-488b-a0b0-0d85f7e187a2" />
+
+Copiamos el certificado ssl autofirmado de postfix para usarlo con dovecot y le damos los permisos necesarios:
+
+<img width="887" height="141" alt="image" src="https://github.com/user-attachments/assets/c9a3ff2e-bbe4-4473-a454-a31af14c1d0c" />
+
+Ponemos estas configuraciones en el archivo ssl de dovecot para el uso de los certificados SSL y protocolos seguros:
+
+<img width="684" height="324" alt="image" src="https://github.com/user-attachments/assets/3b5a5278-ae7d-4c03-9f4e-bd21c314381a" />
+
+Instalamos MailUtils:
+
+<img width="750" height="97" alt="image" src="https://github.com/user-attachments/assets/46953534-3064-4113-8360-b07587bca8e2" />
+
+Comprobamos que podamos mandar correos con el cliente mail:
+
+<img width="936" height="1036" alt="image" src="https://github.com/user-attachments/assets/0be52a7e-9121-4902-8961-f9de73aa7031" />
+
+<img width="752" height="202" alt="image" src="https://github.com/user-attachments/assets/973b659b-23f8-481c-a11e-32432101d22c" />
+
+Podemos ver como enviamos con root un correo al usuario adm_destevez y le llega.
+
+Podemos abrirlo:
+
+<img width="786" height="390" alt="image" src="https://github.com/user-attachments/assets/4cb6a79b-8f7f-484c-b131-f34b2d1dae84" />
+
+Probamos con thunderbird:
+
+<img width="757" height="583" alt="image" src="https://github.com/user-attachments/assets/c6ecd820-c9d7-46ce-8991-a81bff083bdf" />
+
+<img width="599" height="943" alt="image" src="https://github.com/user-attachments/assets/993c8b8a-7589-4d1f-934a-c1414bad2100" />
+
+Comprobamos que la configuración funcine desde thunderbird con los certificados SSL:
+
+<img width="594" height="966" alt="image" src="https://github.com/user-attachments/assets/26dd10c5-17fa-40e7-8163-f0b766a7b290" />
+
+<img width="702" height="749" alt="image" src="https://github.com/user-attachments/assets/ab438b45-9553-44f7-a291-c6a1851dff16" />
+
+<img width="1855" height="644" alt="image" src="https://github.com/user-attachments/assets/25b7d794-37d8-4272-961a-f7f7b18f1d42" />
+
+Vemos al loguearnos con adm_destevez@destevez.fpinfo.com.es que vemos el mensaje que recibimos anteriormente de root, enviemos uno a root desde thunderbird, y lo vemos desde mail, y posteriormente, mandamos uno desde mail con root a adm_destevez a ver si llega y lo vemos en thunderbird:
+
+<img width="1465" height="592" alt="image" src="https://github.com/user-attachments/assets/6d9877e1-9d05-4064-9699-7ffa4073f783" />
+
+<img width="1072" height="345" alt="image" src="https://github.com/user-attachments/assets/5f6a9b22-031c-4bd6-a553-b9b83cbbe195" />
+
+Enviado!
+
+<img width="1099" height="590" alt="image" src="https://github.com/user-attachments/assets/90bfde7f-584a-4d40-9315-9fb2a7edb094" />
+
+Recibido!
+
+Enviemos ahora con root a adm_destevez:
+
+<img width="1240" height="789" alt="image" src="https://github.com/user-attachments/assets/cef1756d-1672-4824-bc54-90cfb7678276" />
+
+Podemos ver como llega la notificación también al enviarlo desde mail.
+
+<img width="1022" height="235" alt="image" src="https://github.com/user-attachments/assets/6aa69bfc-4985-42e1-a7ee-b6e2e2467e2c" />
+
+<img width="1842" height="394" alt="image" src="https://github.com/user-attachments/assets/b4497d0f-ee99-4c07-8fe4-4de36f5f3849" />
+
+Vemos como perfectamente tenemos el mensaje desde thunderbird, lo que dice que está perfectamente conectado con el servidor postfix y dovecot.
 # Documentación de Fernando Irún - Parte 2 Dovecot
 
 ## Configuración realizada
