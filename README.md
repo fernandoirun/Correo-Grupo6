@@ -703,11 +703,6 @@ networks:
 - Envía un correo entre dos usuarios (puedes crear dos cuentas locales en el servidor, ej. `user1` y `user2`).
 
 
-
-
-<img width="607" height="729" alt="image" src="https://github.com/user-attachments/assets/ebc263b2-e288-4430-9583-60f962e21c7f" />
-
-
 # 📧 Paso 7 — Pruebas de Funcionamiento con Thunderbird  
 ## Servicio de Correo Electrónico — Ampliación de SRI (RA5)
 
