@@ -1,9 +1,9 @@
 passdb {
-  driver = passwd-file
-  args = /etc/dovecot/users
+  driver = passwd-file           # Usa un archivo de texto como base de datos
+  args = /etc/dovecot/users      # Ruta del archivo con usuarios y contraseñas
 }
 
 userdb {
-  driver = passwd-file
-  args = /etc/dovecot/users
+  driver = passwd-file           # Usa un archivo de texto como base de datos
+  args = /etc/dovecot/users      # Ruta del archivo con información de usuarios
 }
