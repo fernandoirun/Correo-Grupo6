@@ -1051,7 +1051,7 @@ El sistema de correo:
 - ✔ Permite autenticación correcta  
 - ✔ Permite envío y recepción de correos  
 - ✔ Tiene puertos correctamente expuestos  
-- ✔ Funciona desde cliente externo (Thunderbird)  
+
 
 <img width="607" height="729" alt="image" src="https://github.com/user-attachments/assets/ebc263b2-e288-4430-9583-60f962e21c7f" />
 
