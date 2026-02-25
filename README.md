@@ -808,10 +808,6 @@ CONTAINER ID   IMAGE              COMMAND         STATUS       PORTS
 ```bash
 sudo docker ps -a | grep -i postfix
 ```
-
-Resultado:  
-No se encontró ningún contenedor de Postfix.
-
 ---
 
 ## 4.2 Localización del docker-compose.yml
