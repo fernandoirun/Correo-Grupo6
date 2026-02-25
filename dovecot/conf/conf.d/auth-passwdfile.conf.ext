@@ -2,8 +2,11 @@ passdb {
   driver = passwd-file           # Usa un archivo de texto como base de datos
   args = /etc/dovecot/users      # Ruta del archivo con usuarios y contraseñas
 }
+#  Verifica que la contraseña introducida por el usuario sea correcta, consultando el archivo /etc/dovecot/users.
+
 
 userdb {
   driver = passwd-file           # Usa un archivo de texto como base de datos
   args = /etc/dovecot/users      # Ruta del archivo con información de usuarios
 }
+# Obtiene información del usuario (UID, GID, home, etc.) desde el mismo archivo, para saber dónde está su buzón y con qué permisos acceder.
