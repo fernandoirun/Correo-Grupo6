@@ -1,9 +1,11 @@
+# Configuración temporal para pruebas: cualquier usuario que exista en el sistema puede acceder con la contraseña grupo6pass.
 passdb {
-  driver = static
-  args = password=grupo6pass
+  driver = static                    # Usa valores fijos (no consulta archivo)
+  args = password=grupo6pass         # Todos los usuarios tienen la misma contraseña
 }
 
+# Define que todos los usuarios pertenecen al usuario/grupo vmail (UID/GID 5000) y que sus buzones estarán en /var/mail/vhosts/dominio/usuario.
 userdb {
-  driver = static
-  args = uid=vmail gid=vmail home=/var/mail/vhosts/%d/%n
+  driver = static                    # Usa valores fijos para todos los usuarios
+  args = uid=vmail gid=vmail home=/var/mail/vhosts/%d/%n   # Todos comparten mismo UID/GID y ruta de buzón basada en dominio/usuario
 }
