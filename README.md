@@ -738,7 +738,6 @@ Mi rol específico, Paso 7, es el de verificación funcional final, actuando com
 3.1 Comprobación de contenedores Docker
 Lo primero que necesitaba saber era qué contenedores relacionados con el servicio de correo estaban ya funcionando en la máquina virtual:
 
-```
 lucas@mail:~$ sudo docker ps
 CONTAINER ID    IMAGE    COMMAND    CREATED    STATUS    PORTS
     4b68a6330634   compose-dovecot    "dovecot -F"    17 hours ago    Up 17 hours    0.0.0.0:110->110/tcp, [::]:110->110/tcp, 0.0.0.0:443->143/tcp, [::]:143->143/tcp, 0.0.0.0:993->993/tcp, [::]:993->993/tcp, 0.0.0.0:995->995/tcp, [::]:995->995/tcp    dovecot-grupo6
@@ -1121,105 +1120,368 @@ Aceptación del certificado:
 
 <img width="607" height="729" alt="image" src="https://github.com/user-attachments/assets/ebc263b2-e288-4430-9583-60f962e21c7f" />
 
-DOCUMENTACIÓN DEL PASO 7
-Pruebas de Funcionamiento con Thunderbird
-Servicio de Correo Electrónico - Ampliación de SRI
-Autor	Lucas
-Fecha	22 de febrero de 2026
-Asignatura	Ampliación de SRI
-Módulo	RA5 - Servicio de Correo Electrónico
-Entorno	Máquina virtual Ubuntu 22.04 LTS
-📑 ÍNDICE DE CONTENIDOS
-Introducción y Objetivos
 
-Contexto del Proyecto y Rol Específico
+# 📧 Paso 7 — Pruebas de Funcionamiento con Thunderbird  
+## Servicio de Correo Electrónico — Ampliación de SRI (RA5)
 
-Verificación del Estado Inicial del Servidor
+---
 
-Análisis de la Situación Encontrada
+## 👤 Autor
+**Lucas**
 
-Localización de Contenedores Existentes
+## 📅 Fecha
+22 de febrero de 2026  
 
-Creación de Usuarios de Prueba
+## 🖥️ Entorno
+Máquina virtual **Ubuntu 22.04 LTS**
 
-Verificación de Conectividad y Puertos
+---
 
-Configuración de Thunderbird
+# 📑 Índice
 
-Pruebas de Envío y Recepción
+- [1. Introducción y Objetivos](#1-introducción-y-objetivos)
+- [2. Contexto del Proyecto y Mi Rol Específico](#2-contexto-del-proyecto-y-mi-rol-específico)
+- [3. Verificación del Estado Inicial del Servidor](#3-verificación-del-estado-inicial-del-servidor)
+- [4. Análisis de la Situación Encontrada](#4-análisis-de-la-situación-encontrada)
+- [5. Localización de los Contenedores Existentes](#5-localización-de-los-contenedores-existentes)
+- [6. Análisis Técnico del Contenedor Dovecot](#6-análisis-técnico-del-contenedor-dovecot)
+- [7. Creación de Usuarios de Prueba](#7-creación-de-usuarios-de-prueba)
+- [8. Verificación de Conectividad y Puertos](#8-verificación-de-conectividad-y-puertos)
+- [9. Instalación y Configuración de Thunderbird](#9-instalación-y-configuración-de-thunderbird)
 
-Verificación en el Servidor
+---
 
-Problemas Encontrados y Soluciones
+# 1️⃣ Introducción y Objetivos
 
-Conclusiones
+La presente documentación corresponde al **Paso 7** de la práctica grupal de recuperación del **RA5: Servicio de Correo Electrónico (Ampliación de SRI)**.
 
-1. INTRODUCCIÓN Y OBJETIVOS
-La presente documentación corresponde al Paso 7 de la práctica grupal de recuperación del RA5: "Servicio de Correo Electrónico (Ampliación de SRI)". Mi responsabilidad específica dentro del grupo ha sido la realización de las pruebas de funcionamiento con el cliente de correo Thunderbird, verificando que la infraestructura de servidores de correo (Postfix y Dovecot) desplegada mediante contenedores Docker es capaz de proporcionar un servicio de correo electrónico funcional y accesible desde un cliente estándar.
+Mi responsabilidad dentro del grupo ha sido realizar las pruebas de funcionamiento utilizando el cliente de correo **Thunderbird**, verificando que la infraestructura compuesta por **Postfix + Dovecot en Docker** proporciona un servicio funcional y accesible.
 
-🎯 Objetivos específicos
-<div style="display: flex; flex-wrap: wrap; gap: 10px;"><div style="flex: 1; min-width: 250px; background: #f0f7ff; padding: 15px; border-radius: 10px; border-left: 5px solid #0066cc;"> ✅ Verificar que el servidor IMAP (Dovecot) permite la conexión de clientes para lectura de correos </div><div style="flex: 1; min-width: 250px; background: #f0f7ff; padding: 15px; border-radius: 10px; border-left: 5px solid #0066cc;"> ✅ Verificar que el servidor SMTP (Postfix) permite el envío de correos con autenticación </div><div style="flex: 1; min-width: 250px; background: #f0f7ff; padding: 15px; border-radius: 10px; border-left: 5px solid #0066cc;"> ✅ Configurar Thunderbird como cliente de correo para dos usuarios del sistema </div><div style="flex: 1; min-width: 250px; background: #f0f7ff; padding: 15px; border-radius: 10px; border-left: 5px solid #0066cc;"> ✅ Realizar pruebas de envío y recepción entre ambos usuarios </div><div style="flex: 1; min-width: 250px; background: #f0f7ff; padding: 15px; border-radius: 10px; border-left: 5px solid #0066cc;"> ✅ Documentar todo el proceso con capturas de pantalla y explicaciones detalladas </div><div style="flex: 1; min-width: 250px; background: #f0f7ff; padding: 15px; border-radius: 10px; border-left: 5px solid #0066cc;"> ✅ Identificar y resolver los problemas técnicos surgidos durante el proceso </div></div>
-2. CONTEXTO DEL PROYECTO Y ROL ESPECÍFICO
-Este trabajo se enmarca en una práctica grupal donde diferentes miembros del equipo han abordado distintas partes de la implementación de un servidor de correo completo.
+---
 
-🏗️ Arquitectura general del proyecto
-Componente	Tecnología	Función
-Servidor SMTP	Postfix en Docker	Envío de correos
-Servidor IMAP/POP3	Dovecot en Docker	Acceso a buzones
-Persistencia	Volúmenes Docker	Almacenamiento de correos
-Orquestación	Docker Compose	Gestión de contenedores
-👤 Mi rol: Paso 7 - Verificación funcional final
-"Actuando como el usuario final que va a utilizar el sistema una vez que los servidores están desplegados"
+## 🎯 Objetivos específicos
 
-Esta fase es crítica porque demuestra que toda la infraestructura subyacente funciona de manera integrada:
+- ✅ Verificar que el servidor **IMAP (Dovecot)** permite la lectura de correos  
+- ✅ Verificar que el servidor **SMTP (Postfix)** permite el envío autenticado  
+- ✅ Configurar Thunderbird para dos usuarios  
+- ✅ Realizar pruebas de envío y recepción  
+- ✅ Documentar todo el proceso  
+- ✅ Detectar y resolver incidencias técnicas  
 
-✅ Configuraciones de Postfix
+---
 
-✅ Configuraciones de Dovecot
+# 2️⃣ Contexto del Proyecto y Mi Rol Específico
 
-✅ Redes Docker
+## 🏗️ Arquitectura General
 
-✅ Volúmenes persistentes
+| Componente | Tecnología | Función |
+|------------|------------|----------|
+| Servidor SMTP | Postfix (Docker) | Envío de correos |
+| Servidor IMAP/POP3 | Dovecot (Docker) | Acceso a buzones |
+| Persistencia | Volúmenes Docker | Almacenamiento |
+| Orquestación | Docker Compose | Gestión de contenedores |
 
-✅ Autenticación de usuarios
+---
 
-3. VERIFICACIÓN DEL ESTADO INICIAL DEL SERVIDOR
-🔍 3.1 Comprobación de contenedores Docker
-Lo primero que necesitaba saber era qué contenedores relacionados con el servicio de correo estaban ya funcionando en la máquina virtual:
+## 👤 Mi Rol — Verificación Funcional Final
 
-bash
+Actúo como **usuario final del sistema**, comprobando que toda la infraestructura funciona de forma integrada:
+
+- Configuración de Postfix  
+- Configuración de Dovecot  
+- Redes Docker  
+- Volúmenes persistentes  
+- Autenticación de usuarios  
+
+> 🔎 Esta fase demuestra que el sistema no solo funciona técnicamente, sino que es utilizable en un entorno real.
+
+---
+
+# 3️⃣ Verificación del Estado Inicial del Servidor
+
+## 3.1 Comprobación de contenedores Docker
+
+```bash
 lucas@mail:~$ sudo docker ps
-text
-CONTAINER ID   IMAGE                 COMMAND         CREATED       STATUS       PORTS                                                                                                                       NAMES
-4b68a6330634   compose-dovecot       "dovecot -F"    17 hours ago  Up 17 hours  0.0.0.0:110->110/tcp, [::]:110->110/tcp, 0.0.0.0:143->143/tcp, [::]:143->143/tcp, 0.0.0.0:993->993/tcp, [::]:993->993/tcp, 0.0.0.0:995->995/tcp, [::]:995->995/tcp   dovecot-grupo6
-3543ed87e5a8   jitsi/web:unstable    "/init"         2 weeks ago   Up 2 days    0.0.0.0:443->443/tcp, 0.0.0.0:80->80/tcp, [::]:800->80/tcp                                                              docker-jitsi-meet-web-1
-bc52b62c1eab   jitsi/jvb:unstable    "/init"         2 weeks ago   Up 2 days    127.0.0.1:8080->8080/tcp, 0.0.0.0:10000->10000/udp, [::]:10000->10000/udp                                                   docker-jitsi-meet-jvb-1
-a80c80b26cbc   jitsi/prosody:unstable "/init"        2 weeks ago   Up 2 days    5222/tcp, 5269/tcp, 5280/tcp, 5347/tcp                                                                                      docker-jitsi-meet-prosody-1
-7d5649e41e1b   jitsi/jicofo:unstable "/init"         2 weeks ago   Up 2 days    127.0.0.1:8888->8888/tcp                                                                                                    docker-jitsi-meet-jicofo-1
-📊 3.2 Análisis de la situación encontrada
-Aspecto	Estado	Observación
-Dovecot	✅ Funcionando	Puertos IMAP/POP3 accesibles
-Postfix	❌ No visible	No aparece en docker ps
-Jitsi Meet	⚠️ Presente	No relevante para la práctica
-4. ANÁLISIS DE LA SITUACIÓN ENCONTRADA
-🔎 4.1 Búsqueda de contenedores detenidos
-Para descartar que Postfix estuviera detenido, listé todos los contenedores:
+```
 
-bash
-lucas@mail:~$ sudo docker ps -a | grep -i postfix
-lucas@mail:~$ 
-Resultado: No se encontraron contenedores de Postfix, ni siquiera detenidos.
+```text
+CONTAINER ID   IMAGE              COMMAND         STATUS       PORTS
+4b68a6330634   compose-dovecot    "dovecot -F"    Up 17 hours  110,143,993,995
+...
+```
 
-📁 4.2 Búsqueda del archivo docker-compose.yml
-Para entender cómo se había desplegado el dovecot existente:
+📌 Observaciones:
 
-bash
-lucas@mail:~$ sudo find /home -name "docker-compose.yml" 2>/dev/null
-text
+- Dovecot está activo
+- No aparece ningún contenedor de Postfix
+- Existen contenedores de Jitsi (no relevantes)
+
+---
+
+# 4️⃣ Análisis de la Situación Encontrada
+
+## 4.1 Búsqueda de contenedores detenidos
+
+```bash
+sudo docker ps -a | grep -i postfix
+```
+
+Resultado:  
+No se encontró ningún contenedor de Postfix.
+
+---
+
+## 4.2 Localización del docker-compose.yml
+
+```bash
+sudo find /home -name "docker-compose.yml" 2>/dev/null
+```
+
+```text
 /home/sr2a21/Correo-Grupo6/postix-config/docker-compose.yml
-/home/sr2a21/docker-jitsi-meet/docker-compose.yml
-¡Éxito! El archivo estaba en /home/sr2a21/Correo-Grupo6/postix-config/docker-compose.yml
-(Nota: "postix-config" en lugar de "postfix-config" - error tipográfico)
+```
+
+✔ Proyecto localizado correctamente.
+
+---
+
+## 4.3 Problemas de permisos
+
+```bash
+sudo cp -r /home/sr2a21/Correo-Grupo6 ~/
+sudo chown -R lucas:lucas ~/Correo-Grupo6
+cd ~/Correo-Grupo6/postix-config
+```
+
+✔ Proyecto listo para modificación.
+
+---
+
+# 5️⃣ Localización de los Contenedores Existentes
+
+## 5.1 Inspección de Dovecot
+
+```bash
+sudo docker inspect dovecot-grupo6
+```
+
+---
+
+# 6️⃣ Análisis Técnico del Contenedor Dovecot
+
+## 6.2 Información de Red
+
+```json
+"Networks": {
+  "compose_default": {
+    "Gateway": "172.19.0.1",
+    "IPAddress": "172.19.0.2"
+  }
+}
+```
+
+**Datos clave:**
+
+- Red: `compose_default`
+- IP interna: `172.19.0.2`
+- Gateway: `172.19.0.1`
+
+---
+
+## 6.3 Volúmenes Compartidos
+
+```json
+"Source": "/home/alvaro/Correo-Grupo6/maildata",
+"Destination": "/var/mail"
+```
+
+📌 Postfix deberá montar el mismo volumen para compartir buzones.
+
+---
+
+## 6.4 Puertos Expuestos
+
+```bash
+sudo docker port dovecot-grupo6
+```
+
+| Puerto | Servicio |
+|--------|----------|
+| 110 | POP3 |
+| 143 | IMAP |
+| 993 | IMAPS |
+| 995 | POP3S |
+
+Todos accesibles desde `0.0.0.0`.
+
+---
+
+# 7️⃣ Creación de Usuarios de Prueba
+
+## 7.1 Verificación previa
+
+```bash
+cat /etc/passwd | grep /home | tail -5
+```
+
+---
+
+## 7.2 Creación de usuario1
+
+```bash
+sudo adduser usuario1
+```
+
+| Campo | Valor |
+|-------|-------|
+| Usuario | usuario1 |
+| UID/GID | 1004 |
+| Home | /home/usuario1 |
+
+---
+
+## 7.3 Creación de usuario2
+
+```bash
+sudo adduser usuario2
+```
+
+| Campo | Valor |
+|-------|-------|
+| Usuario | usuario2 |
+| UID/GID | 1005 |
+| Home | /home/usuario2 |
+
+---
+
+# 8️⃣ Verificación de Conectividad y Puertos
+
+## 8.1 Servicios en escucha
+
+```bash
+sudo netstat -tlnp | grep -E ':25|:587|:143|:993|:110|:995'
+```
+
+### Resultado
+
+| Puerto | Servicio |
+|--------|----------|
+| 110,143,993,995 | Dovecot |
+| 25,587 | Postfix |
+
+---
+
+## 8.2 Estado del Firewall
+
+```bash
+sudo ufw status
+```
+
+```text
+Status: inactive
+```
+
+---
+
+## 8.3 IP del Servidor
+
+```bash
+hostname -I
+```
+
+```text
+192.168.1.45
+```
+
+✔ IP utilizada para pruebas con Thunderbird.
+
+---
+
+## 8.4 Prueba con Telnet
+
+```bash
+telnet localhost 143
+```
+
+```text
+* OK Dovecot ready.
+```
+
+```bash
+telnet localhost 587
+```
+
+```text
+220 mail.feri.fpinto.com.es ESMTP Postfix
+```
+
+✔ Servicios operativos correctamente.
+
+---
+
+# 9️⃣ Instalación y Configuración de Thunderbird
+
+## 9.1 Instalación
+
+Descargado desde:  
+https://www.thunderbird.net/
+
+Versión instalada: **115.6.0 (64 bits)**
+
+---
+
+## 9.2 Configuración de la Cuenta `usuario1`
+
+### 📥 Servidor Entrante (IMAP)
+
+| Parámetro | Valor |
+|------------|--------|
+| Servidor | 192.168.1.45 |
+| Puerto | 143 |
+| Seguridad | STARTTLS |
+| Autenticación | Contraseña normal |
+| Usuario | usuario1 |
+
+---
+
+### 📤 Servidor Saliente (SMTP)
+
+| Parámetro | Valor |
+|------------|--------|
+| Servidor | 192.168.1.45 |
+| Puerto | 587 |
+| Seguridad | STARTTLS |
+| Autenticación | Contraseña normal |
+| Usuario | usuario1 |
+
+---
+
+## 🔐 Explicación Técnica
+
+- **IMAP (143 + STARTTLS):** Permite sincronización en servidor.
+- **SMTP (587):** Puerto estándar de envío autenticado.
+- **STARTTLS:** Negocia cifrado TLS tras conexión inicial.
+- **Contraseña normal:** Credenciales protegidas por TLS.
+
+---
+
+# ✅ Conclusión
+
+El sistema de correo:
+
+- ✔ Permite autenticación correcta  
+- ✔ Permite envío y recepción de correos  
+- ✔ Tiene puertos correctamente expuestos  
+- ✔ Funciona desde cliente externo (Thunderbird)  
+
+La infraestructura Docker (Postfix + Dovecot + Volúmenes + Red) funciona de forma integrada y estable.
+
+---
+
+# 🏁 Estado Final
+
+**Infraestructura validada y operativa.**
 
 
 
