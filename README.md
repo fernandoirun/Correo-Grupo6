@@ -750,7 +750,7 @@ a80c80b26cbc   jitsi/prosody:unstable    "/init"    2 weeks ago    Up 2 days    
     docker-jitsi-meet-prosody-1
 7d5649e41e1b   jitsi/jicofo:unstable    "/init"    2 weeks ago    Up 2 days    127.0.0.1:8888->8888/tcp
     docker-jitsi-meet-jicofo-1
-Figura 4.1: Listado inicial de contenedores - Se observa dovecot funcionando pero sin postfix
+
 
 
 
@@ -762,7 +762,6 @@ Para descartar la opción B, listé todos los contenedores, incluyendo los deten
 bash
 lucas@mail:~$ sudo docker ps -a | grep -i postfix
 lucas@mail:~$ 
-Figura 5.1: No se encontraron contenedores de postfix ni siquiera detenidos
 
 4.2 Búsqueda del archivo docker-compose.yml
 Para entender cómo se había desplegado el dovecot existente y poder desplegar postfix de manera coherente, necesitaba localizar el archivo docker-compose.yml del proyecto:
@@ -771,9 +770,8 @@ bash
 lucas@mail:~$ sudo find /home -name "docker-compose.yml" 2>/dev/null
 /home/sr2a21/Correo-Grupo6/postix-config/docker-compose.yml
 /home/sr2a21/docker-jitsi-meet/docker-compose.yml
-Figura 5.2: Localización del archivo docker-compose.yml del proyecto de correo
 
-¡Éxito! El archivo estaba en /home/sr2a21/Correo-Grupo6/postix-config/docker-compose.yml (notar la errata "postix-config" en lugar de "postfix-config").
+¡Éxito! El archivo estaba en /home/sr2a21/Correo-Grupo6/postix-config/docker-compose.yml 
 
 
 4.3 Tuve problemas con los permisos
@@ -784,7 +782,6 @@ lucas@mail:~$ sudo cp -r /home/sr2a21/Correo-Grupo6 ~/
 lucas@mail:~$ sudo chown -R lucas:lucas ~/Correo-Grupo6
 lucas@mail:~$ cd ~/Correo-Grupo6/postix-config
 lucas@mail:~/Correo-Grupo6/postix-config$ 
-Figura 5.5: Copia del proyecto a mi directorio personal y cambio de propietario
 
 5. LOCALIZACIÓN DE LOS CONTENEDORES EXISTENTES
 5.1 Inspección detallada del contenedor dovecot
@@ -848,7 +845,7 @@ json
         "RW": false
     }
 ]
-Figura 6.2: Volúmenes montados en el contenedor dovecot
+
 
 Datos clave obtenidos:
 
@@ -871,7 +868,6 @@ lucas@mail:~/Correo-Grupo6/postix-config$ sudo docker port dovecot-grupo6
 993/tcp -> [::]:993
 995/tcp -> 0.0.0.0:995
 995/tcp -> [::]:995
-Figura 6.3: Puertos expuestos por dovecot
 
 Datos clave:
 
@@ -891,7 +887,7 @@ json
     "com.docker.compose.project.working_dir": "/home/alvaro/Correo-Grupo6/compose",
     "com.docker.compose.service": "dovecot"
 }
-Figura 6.4: Etiquetas de Docker Compose del contenedor
+
 
 Estas etiquetas confirman que el contenedor fue desplegado con Docker Compose desde el directorio /home/alvaro/Correo-Grupo6/compose, usando un archivo específico para dovecot.
 
@@ -919,7 +915,7 @@ lucas@mail:~/Correo-Grupo6/postix-config$ cat /etc/passwd | grep /home | tail -5
 alvaro:x:1001:1001:Alvaro,,,:/home/alvaro:/bin/bash
 sr2a21:x:1002:1002:,,,:/home/sr2a21:/bin/bash
 lucas:x:1003:1003:,,,:/home/lucas:/bin/bash
-Figura 7.1: Usuarios existentes en el sistema
+
 
 No había usuarios de prueba específicos para el correo, así que procedí a crearlos.
 
@@ -942,7 +938,7 @@ Introduzca el nuevo valor, o pulse INTRO para el valor predeterminado
     Teléfono de casa []: 
     Otro []: 
 ¿Es correcta la información? [S/n] S
-Figura 7.2: Creación de usuario1
+
 
 Detalles del usuario1:
 
@@ -975,7 +971,7 @@ Introduzca el nuevo valor, o pulse INTRO para el valor predeterminado
     Teléfono de casa []: 
     Otro []: 
 ¿Es correcta la información? [S/n] S
-Figura 7.3: Creación de usuario2
+
 
 Detalles del usuario2:
 
@@ -994,7 +990,7 @@ bash
 lucas@mail:~/Correo-Grupo6/postix-config$ cat /etc/passwd | grep usuario
 usuario1:x:1004:1004:Usuario de Prueba 1,,,:/home/usuario1:/bin/bash
 usuario2:x:1005:1005:Usuario de Prueba 2,,,:/home/usuario2:/bin/bash
-Figura 7.4: Verificación de que los usuarios se crearon correctamente
+
 
 8. VERIFICACIÓN DE CONECTIVIDAD Y PUERTOS
 Antes de pasar a la configuración de Thunderbird, necesitaba asegurarme de que los servicios eran accesibles desde el exterior.
@@ -1014,7 +1010,7 @@ tcp6       0      0 :::993                   :::*                    LISTEN     
 tcp6       0      0 :::995                   :::*                    LISTEN      224278/dovecot      
 tcp6       0      0 :::587                   :::*                    LISTEN      227632/master       
 tcp6       0      0 :::25                    :::*                    LISTEN      227632/master
-Figura 8.1: Puertos de correo escuchando en todas las interfaces
+
 
 Análisis de la salida:
 
@@ -1032,13 +1028,13 @@ Los puertos 25 y 587 están gestionados por postfix (PID 227632)
 bash
 lucas@mail:~/Correo-Grupo6/postix-config$ sudo ufw status
 Status: inactive
-Figura 8.2: El firewall está inactivo, no bloqueará conexiones
+
 
 8.3 Obtención de la IP del servidor
 bash
 lucas@mail:~/Correo-Grupo6/postix-config$ hostname -I
 172.19.0.1 10.0.2.15 192.168.1.45
-Figura 8.3: Direcciones IP del servidor
+
 
 La IP 192.168.1.45 es la que está en la red local y será accesible desde mi PC para las pruebas con Thunderbird.
 
@@ -1054,7 +1050,7 @@ Escape character is '^]'.
 ^]
 telnet> quit
 Connection closed.
-Figura 8.4: Prueba de conexión IMAP exitosa
+
 
 bash
 lucas@mail:~/Correo-Grupo6/postix-config$ telnet localhost 587
@@ -1065,7 +1061,7 @@ Escape character is '^]'.
 ^]
 telnet> quit
 Connection closed.
-Figura 8.5: Prueba de conexión SMTP exitosa
+
 
 8.5 Conclusión de las verificaciones
 Todos los servicios están funcionando correctamente y son accesibles. Ya puedo proceder con la configuración de Thunderbird.
@@ -1091,7 +1087,6 @@ Contraseña: [la establecida durante la creación del usuario]
 
 Configuración manual: Al hacer clic en "Continuar", Thunderbird intentó autodetectar la configuración pero falló (lo esperado, ya que es un servidor privado). Hice clic en "Configurar manualmente" en la parte inferior derecha.
 
-Figura 9.1: Pantalla de configuración manual
 
 https://capturas/thunderbird-config-manual.png
 
@@ -1123,74 +1118,6 @@ Contraseña normal: El método de autenticación básico donde el cliente envía
 Puerto 587: Es el puerto estándar para envío de correo con autenticación (SMTP submission), a diferencia del puerto 25 que tradicionalmente se usa para transferencia entre servidores.
 
 Aceptación del certificado:
-
-Al hacer clic en "Listo", Thunderbird mostró una advertencia de seguridad:
-
-text
-Advertencia de seguridad
-El servidor mail.feri.fpinto.com.es presenta un certificado que no es válido porque el emisor del certificado es desconocido, el certificado está autofirmado.
-Figura 9.2: Advertencia de certificado autofirmado
-
-https://capturas/thunderbird-cert-warning.png
-
-Explicación: Esta advertencia es completamente normal en entornos de desarrollo y pruebas. En producción, se usarían certificados firmados por una autoridad certificadora (CA) reconocida, pero para prácticas como esta, los certificados autofirmados son aceptables. Marqué la opción "Aceptar el riesgo y continuar" y confirmé la excepción de seguridad.
-
-9.3 Verificación de la cuenta configurada
-Una vez completada la configuración, Thunderbird mostró la bandeja de entrada de usuario1, inicialmente vacía:
-
-Figura 9.3: Bandeja de entrada de usuario1
-
-https://capturas/thunderbird-inbox-usuario1.png
-
-9.4 Configuración de la segunda cuenta (usuario2)
-Para añadir la segunda cuenta sin necesidad de abrir otra instancia de Thunderbird, utilicé el Gestor de identidades:
-
-Acceso al Gestor de identidades:
-
-Hice clic en "Ajustes" (menú hamburguesa)
-
-Seleccioné "Configuración de las cuentas"
-
-En la parte inferior izquierda, hice clic en "Acciones de la cuenta"
-
-Seleccioné "Añadir cuenta de correo"
-
-Figura 9.4: Gestor de identidades de Thunderbird
-
-https://capturas/thunderbird-identity-manager.png
-
-Repetí el proceso de configuración con los datos de usuario2:
-
-Parámetro	Valor
-Dirección de correo	usuario2@feri.fpinto.com.es
-Nombre de usuario	usuario2
-Contraseña	[la de usuario2]
-(Los mismos parámetros de servidor: 192.168.1.45, puertos 143 y 587)
-
-9.5 Gestor de identidades con ambas cuentas
-Una vez configuradas ambas cuentas, el panel izquierdo de Thunderbird mostró:
-
-usuario1@feri.fpinto.com.es
-
-Bandeja de entrada
-
-Enviados
-
-Archivo
-
-Papelera
-
-usuario2@feri.fpinto.com.es
-
-Bandeja de entrada
-
-Enviados
-
-Archivo
-
-Papelera
-
-Figura 9.5: Ambas cuentas configuradas correctamente
 
 <img width="607" height="729" alt="image" src="https://github.com/user-attachments/assets/ebc263b2-e288-4430-9583-60f962e21c7f" />
 
