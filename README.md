@@ -461,26 +461,6 @@ Conexión IMAP exitosa
 
 
 
-
-
-
-
-# ASIR-Practica-Correo-FDLA
-Repositorio de Fernando Irún, Daniel Estévez, Lucas Garcia Redruello, Álvaro Rodríguez para la implementación y configuración de un sistema de correo electrónico completo (MTA y MDA) sobre Ubuntu Server, utilizando Postfix para el envío mediante SMTP y Dovecot para el acceso a buzones mediante IMAP/POP3, integrando seguridad TLS y pruebas de cliente con Thunderbird
-
-
-Para tu repositorio de GitHub, la descripción debe ser profesional y directa, indicando que se trata de un entorno de laboratorio para el despliegue de servicios de red.
-
-### Descripción del repositorio
-
-> **Repositorio para la implementación y configuración de un sistema de correo electrónico completo (MTA y MDA) sobre Ubuntu Server, utilizando Postfix para el envío mediante SMTP y Dovecot para el acceso a buzones mediante IMAP/POP3, integrando seguridad TLS y pruebas de cliente con Thunderbird.**
-
----
-
-### Borrador de `README.md`
-
-A continuación tienes una estructura profesional basada específicamente en los pasos y comandos de tu PDF.
-
 ```markdown
 # Práctica: Configuración del Servicio de Correo Electrónico
 
@@ -624,55 +604,6 @@ Configuración final del cliente:
 
 
 
-```
-
-¿Te gustaría que te ayude a redactar un pequeño script en Bash para automatizar la parte de la instalación de los paquetes?
-
-```
-
-
-## 📧 Recuperación del RA5: Servicio de Correo Electrónico (Ampliación de SRI)
-
-Según la información proporcionada, la **recuperación extraordinaria** del RA5 (y su ampliación) consiste en realizar de **forma individual** la práctica del servicio de correo electrónico, empleando algunas de las tecnologías vistas en el módulo de Ampliación de SRI (Servicios de Red e Internet). El resultado debe documentarse en un **PDF** que incluya las pruebas realizadas.
-
-A continuación, te resumo los **objetivos clave**, los **pasos a seguir** y los **criterios de evaluación** para que puedas preparar tu trabajo de recuperación con éxito.
-
----
-
-### 🎯 Objetivos del proyecto (según el ABP)
-
-1. **Trabajar con Git/GitHub** (opcional, pero recomendado para la ampliación)  
-   - Crear un repositorio privado (invita a la profesora `mercerodri` como colaboradora).  
-   - Usar ramas, commits y, si procede, pull requests.  
-
-2. **Implementar un servidor de correo con contenedores Docker**  
-   - **Postfix** (SMTP) y **Dovecot** (IMAP/POP3) en contenedores independientes.  
-   - Puedes usar imágenes oficiales (`postfix:latest`, `dovecot/dovecot:latest`) o crear tus propias imágenes con `Dockerfile`.  
-   - Los buzones deben ser persistentes (volúmenes).  
-
-3. **Automatizar el despliegue con Docker Compose**  
-   - Definir los servicios, puertos (25, 587, 143, 993, 110, 995), volúmenes y dependencias.  
-   - Asegurar que los contenedores se comuniquen correctamente.  
-
-4. **Investigar / opcionalmente implementar despliegue en Azure con Terraform**  
-   - Se valora positivamente si exploras cómo llevar los contenedores a Azure (ACI o VM).  
-
-5. **Realizar pruebas funcionales**  
-   - Envío y recepción de correos entre dos usuarios locales.  
-   - Usar cliente de correo (Thunderbird) configurado con **IMAP** y **SMTP autenticado**.  
-   - Verificar logs, buzones (`/var/mail`), y funcionamiento con comandos como `mail` o `swaks`.  
-
-6. **Documentar todo en un PDF**  
-   - Incluir capturas de pantalla de:  
-     - Configuración de contenedores y `docker-compose.yml`.  
-     - Pruebas de envío/recepción (Thunderbird, `mail`, logs).  
-     - (Opcional) Pasos en GitHub y Terraform.  
-   - Explicar brevemente cada etapa y los problemas encontrados.  
-
----
-
-### 📋 Pasos recomendados para la recuperación
-
 #### 1. Preparación del entorno
 - Máquina virtual o física con Ubuntu (o cualquier Linux con Docker instalado).  
 - Instalar Docker y Docker Compose.  
@@ -786,32 +717,3 @@ root@mail:~# hostname -I
 Desde un equipo cliente (Windows 11) se procedió a configurar Thunderbird:
 
 <img width="607" height="729" alt="image" src="https://github.com/user-attachments/assets/ebc263b2-e288-4430-9583-60f962e21c7f" />
-
-
-
-#### 8. Documentación en PDF
-- Incluye:
-  - Objetivo de la práctica.  
-  - Explicación de la arquitectura (Postfix, Dovecot, Docker).  
-  - Pasos realizados (comandos, configuraciones).  
-  - Capturas de pantalla de:
-    - Archivos de configuración relevantes.  
-    - `docker-compose.yml`.  
-    - Ejecución de `docker-compose up` y `docker ps`.  
-    - Envío y recepción de correo (Thunderbird o `mail`).  
-    - Logs que demuestren el funcionamiento.  
-  - Problemas encontrados y soluciones.  
-  - Conclusiones.
-
----
-
-### ✅ Criterios de evaluación (basados en la rúbrica del ABP)
-
-La evaluación se centra en:
-
-- **Funcionalidad del servicio**: Postfix y Dovecot correctamente instalados y configurados, envío/recepción funcionando.  
-- **Uso de contenedores**: imágenes adecuadas, persistencia de datos, red entre contenedores.  
-- **Automatización con Docker Compose**: correcto uso de dependencias, puertos, volúmenes.  
-- **Pruebas completas**: demo con Thunderbird, logs, etc.  
-- **Calidad de la documentación**: claridad, capturas, explicaciones técnicas.  
-- **Ampliación**: uso de GitHub (commits, ramas) y Terraform (si se implementa).
